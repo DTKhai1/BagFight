@@ -20,7 +20,6 @@ public class InventoryManager : MonoBehaviour
             {
                 SpawnNewItem(weapon, _inventorySlots[i]);
                 _weaponManager.AddWeapon(weapon);
-                Debug.Log("Item added to inventory" +i +" : " + weapon._weaponName);
                 return;
             }
         }

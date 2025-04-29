@@ -15,10 +15,19 @@ public enum WeaponType
     Attack,
     Self
 }
+public enum WeaponName
+{
+    Axe,
+    Mace,
+    Shield,
+    HealPotion,
+    Sword,
+    Wand,
+}
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
 public class WeaponData : ScriptableObject
 {
-    public string _weaponName;
+    public WeaponName _weaponName;
     public int _basedamage;
     public float _attackSpeed;
     public Sprite _icon;
@@ -96,7 +105,6 @@ public class WeaponData : ScriptableObject
         {
             Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
             _fireCD = 0;
-            Debug.Log(_weaponName + "'s damage: " + Damage);
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GotoNewScene : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
     LevelManager _gameManager;
     private void Awake()
@@ -15,6 +15,6 @@ public class GotoNewScene : MonoBehaviour
     }
     public void ChangeScene()
     {
-        _gameManager.ChangeScene("Test");
+        _gameManager.ChangeScene("Main");
     }
 }

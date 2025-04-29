@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - Enemy
+  - MainUI
   layers:
   - Default
   - TransparentFX
