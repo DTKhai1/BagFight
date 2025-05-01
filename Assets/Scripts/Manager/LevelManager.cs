@@ -11,16 +11,14 @@ public class LevelManager : MonoBehaviour, IUpdateObserver
     public async Task LoadLevel(string sceneName)
     {
         _loadingBar.value = 0f;
+        _loadingScreen.SetActive(true);
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
-
-        _loadingScreen.SetActive(true);
         do
         {
             await Task.Delay(100);
             _target = scene.progress;
         } while (scene.progress < 0.9f);
-        await Task.Delay(1000); // Optional delay for loading screen
         scene.allowSceneActivation = true;
         _loadingScreen.SetActive(false);
     }
@@ -32,6 +30,6 @@ public class LevelManager : MonoBehaviour, IUpdateObserver
     }
     public void ObservedUpdate()
     {
-        _loadingBar.value = Mathf.MoveTowards(_loadingBar.value, _target, Time.deltaTime);
+        _loadingBar.value = Mathf.MoveTowards(_loadingBar.value, _target, Time.deltaTime * 10);
     }
 }

@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 2595349425979688360}
   - component: {fileID: 3417425897846590578}
   - component: {fileID: 8006663415024520314}
+  - component: {fileID: 987476817575764107}
+  - component: {fileID: 6331926964564170883}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,3 +121,28 @@ CapsuleCollider2D:
   m_Offset: {x: 5.295502e-13, y: -0.0013607182}
   m_Size: {x: 1.0000001, y: 3.757719}
   m_Direction: 0
+--- !u!114 &987476817575764107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737138533150784627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b739811c3f752474e967e7362dc6f66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerWeaponList: []
+--- !u!114 &6331926964564170883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737138533150784627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7be15cdbd5f627459b553fee9d46248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

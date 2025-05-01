@@ -88,7 +88,6 @@ public class MainUIManager : MonoBehaviour
         _currentTab = newTab;
         float _newTabIndex = _currentTabIndex;
         _UIList[(int)_newTabIndex].SetActive(true);
-        Debug.Log("oldTabIndex: " + _oldTabIndex + " newTabIndex: " + _newTabIndex);
         _UIPos.anchoredPosition = new Vector2(_UIPos.anchoredPosition.x - _screenWidth * (_newTabIndex - _oldTabIndex), _UIPos.anchoredPosition.y);
         _UIList[(int)_oldTabIndex].SetActive(false);
     }

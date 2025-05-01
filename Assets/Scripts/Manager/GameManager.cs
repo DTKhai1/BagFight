@@ -6,18 +6,23 @@ using UnityEngine.SceneManagement;
 public enum GameState
 {
     MainMenu,
-    Battle,
-    PlayerTurn,
+    Playing,
     GameOver,
     Victory,
     Pause,
     Shop
 }
+public enum PlayingState
+{
+    Event,
+    EnemySpawn
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
+    public PlayingState CurrentPlayingState { get; private set; }
     public GameState CurrentState { get; private set; }
+    public EnemyManager EnemyManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
+
+
     }
     private void Start()
     {
@@ -53,13 +60,16 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case GameState.Pause:
-                Time.timeScale = 0;
+                Debug.Log("Pause Menu");
+                //Time.timeScale = 0;
                 break;
             case GameState.GameOver:
-                Time.timeScale = 0;
+                Debug.Log("Game Over Menu");
+                //Time.timeScale = 0;
                 break;
             case GameState.Victory:
-                Time.timeScale = 0;
+                Debug.Log("Victory Menu");
+                //Time.timeScale = 0;
                 break;
         }
     }
@@ -83,5 +93,15 @@ public class GameManager : MonoBehaviour
     public void ChangeToGameOverUI()
     {
         ChangeState(GameState.GameOver);
+    }
+    public void ChangeToEnemySpawn()
+    {
+        Debug.Log("Enemy Spawn");
+        CurrentPlayingState = PlayingState.EnemySpawn;
+    }
+    public void ChangeToEvent()
+    {
+        Debug.Log("Event");
+        CurrentPlayingState = PlayingState.Event;
     }
 }

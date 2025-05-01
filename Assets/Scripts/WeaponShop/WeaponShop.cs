@@ -13,9 +13,12 @@ public class WeaponShop : MonoBehaviour
 
     private int _numberOfWeapons;
     private InventoryManager _inventoryManager;
+    private void Awake()
+    {
+        _inventoryManager = GameObject.Find("Inventory").GetComponent<InventoryManager>();
+    }
     private void Start()
     {
-        _inventoryManager = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManager>();
         _numberOfWeapons = _weaponList.Count;
         ShowShopUI();
     }

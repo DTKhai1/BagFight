@@ -7,10 +7,9 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     private InventoryManager _inventoryManager;
-    private void Start()
+    private void Awake()
     {
-        _inventoryManager = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManager>();
-        _inventoryManager._inventorySlots.Add(this);
+        _inventoryManager = GameObject.FindGameObjectWithTag("Inventory").GetComponent<InventoryManager>();
     }
     public void OnDrop(PointerEventData eventData)
     {
@@ -27,13 +26,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryItem currentItem = transform.GetChild(0).GetComponent<InventoryItem>();
             if (currentItem._weaponData._weaponName == item._weaponData._weaponName && currentItem._weaponData._level == item._weaponData._level)
             {
+                _inventoryManager.RemoveWeapon(item._inventoryPosition);
                 currentItem._weaponData.UpgradeLevel();
                 currentItem.InitializeItem(currentItem._weaponData);
+                _inventoryManager.UpdateWeapon(currentItem._weaponData, currentItem._inventoryPosition);
                 Destroy(item.gameObject);
-                _inventoryManager.RemoveWeapon(item._weaponData);
             }
         }
-    }
+    }   
     public bool IsEmpty()
     {
         return transform.childCount == 0;

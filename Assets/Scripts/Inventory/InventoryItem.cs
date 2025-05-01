@@ -7,6 +7,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     public WeaponData _weaponData;
     public Image _image;
     public Transform _parentAfterDrag;
+    public int _inventoryPosition;
 
     private Canvas _mainCanvas;
 
@@ -43,5 +44,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         _weaponData = weaponData;
         _image.sprite = _weaponData._icon;
         _image.color = _weaponData._backgroundColor;
+        _weaponData._weaponProjectile.GetComponent<SpriteRenderer>().color = weaponData._backgroundColor;
     }
 }

@@ -28,7 +28,7 @@ public enum WeaponName
 public class WeaponData : ScriptableObject
 {
     public WeaponName _weaponName;
-    public int _basedamage;
+    public float _basedamage;
     public float _attackSpeed;
     public Sprite _icon;
     public int _price;
@@ -56,28 +56,31 @@ public class WeaponData : ScriptableObject
     }
 
     private float _fireCD = 0;
-    public int RarityMultiplier
+    public float RarityMultiplier
     {
         get
         {
             switch (_level)
             {
                 case WeaponLevel.common:
-                    return 1;
+                    return 1f;
                 case WeaponLevel.rare:
-                    return 2;
+                    return 2f;
                 case WeaponLevel.epic:
-                    return 3;
+                    return 3f;
                 case WeaponLevel.legendary:
-                    return 4;
+                    return 4f;
                 default:
-                    return 1;
+                    return 1f;
             }
         }
     }
-    public int Damage
+    public float Damage
     {
-        get { return _basedamage * RarityMultiplier; }
+        get 
+        {
+            return _basedamage * RarityMultiplier; 
+        }
     }
 
     public void UpgradeLevel()
@@ -86,11 +89,14 @@ public class WeaponData : ScriptableObject
         {
             case WeaponLevel.common:
                 _level = WeaponLevel.rare;
+                Debug.Log("Weapon upgraded to rare.");
                 break;
             case WeaponLevel.rare:
+                Debug.Log("Weapon upgraded to epic.");
                 _level = WeaponLevel.epic;
                 break;
             case WeaponLevel.epic:
+                Debug.Log("Weapon upgraded to legendary.");
                 _level = WeaponLevel.legendary;
                 break;
             case WeaponLevel.legendary:

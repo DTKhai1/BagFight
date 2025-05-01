@@ -8,9 +8,9 @@ public class InventoryManager : MonoBehaviour
     public List<InventorySlot> _inventorySlots;
     public GameObject _inventoryItemPrefab;
     public WeaponManager _weaponManager;
-    private void Start()
+    private void Awake()
     {
-        _weaponManager = GetComponent<WeaponManager>();
+        _weaponManager = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponManager>();
     }
     public void AddItem(WeaponData weapon)
     {
@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour
             if (_inventorySlots[i].IsEmpty())
             {
                 SpawnNewItem(weapon, _inventorySlots[i]);
-                _weaponManager.AddWeapon(weapon);
+                _weaponManager.AddWeapon(weapon, i);
                 return;
             }
         }
@@ -35,15 +35,21 @@ public class InventoryManager : MonoBehaviour
         }
         return true;
     }
-    void SpawnNewItem(WeaponData weapon, InventorySlot slot)
+    private void SpawnNewItem(WeaponData weapon, InventorySlot slot)
     {
         GameObject newItem = Instantiate(_inventoryItemPrefab, slot.transform);
         InventoryItem item = newItem.GetComponent<InventoryItem>();
         item.InitializeItem(weapon);
+        item._inventoryPosition = slot.transform.GetSiblingIndex();
+        Debug.Log("Item spawned at position: " + item._inventoryPosition);
     }
 
-    internal void RemoveWeapon(WeaponData weaponData)
+    public void RemoveWeapon(int index)
     {
-        _weaponManager._playerWeaponList.Remove(weaponData);
+        _weaponManager._playerWeaponList[index] = null;
+    }
+    public void UpdateWeapon(WeaponData weaponData, int index)
+    {
+        _weaponManager.UpdateWeapon(weaponData, index);
     }
 }
