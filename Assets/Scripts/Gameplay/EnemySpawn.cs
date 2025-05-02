@@ -21,7 +21,6 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
     {
         ResetForNewWave();
         _gameManager.EnemyManager._waveLeft = _totalWave;
-        _gameManager.ChangeToEnemySpawn();
     }
     private void SpawnEnemy()
     {

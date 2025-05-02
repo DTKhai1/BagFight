@@ -18,6 +18,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             GameObject droppedItem = eventData.pointerDrag;
             InventoryItem item = eventData.pointerDrag.GetComponent<InventoryItem>();
             item._parentAfterDrag = transform;
+            _inventoryManager.RemoveWeapon(item._inventoryPosition);
+            item._inventoryPosition = transform.GetSiblingIndex();
+            _inventoryManager.UpdateWeapon(item._weaponData, item._inventoryPosition);
         }
         if (transform.childCount == 1)
         {

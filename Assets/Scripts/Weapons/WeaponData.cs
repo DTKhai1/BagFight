@@ -29,7 +29,7 @@ public class WeaponData : ScriptableObject
 {
     public WeaponName _weaponName;
     public float _basedamage;
-    public float _attackSpeed;
+    public float _baseAttackSpeed;
     public Sprite _icon;
     public int _price;
     public WeaponLevel _level;
@@ -54,7 +54,25 @@ public class WeaponData : ScriptableObject
             }
         }
     }
-
+    public float AttackSpeed
+    {
+        get
+        {
+            switch (_level)
+            {
+                case WeaponLevel.common:
+                    return _baseAttackSpeed;
+                case WeaponLevel.rare:
+                    return _baseAttackSpeed * 1.5f;
+                case WeaponLevel.epic:
+                    return _baseAttackSpeed * 2f;
+                case WeaponLevel.legendary:
+                    return _baseAttackSpeed * 2.5f;
+                default:
+                    return _baseAttackSpeed;
+            }
+        }
+    }
     private float _fireCD = 0;
     public float RarityMultiplier
     {
@@ -107,9 +125,10 @@ public class WeaponData : ScriptableObject
     public void Fire(Vector2 firePoint)
     {
         _fireCD += Time.fixedDeltaTime;
-        if (_fireCD >= 1 / _attackSpeed)
+        if (_fireCD >= 1 / AttackSpeed)
         {
-            Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
+            _weaponProjectile.GetComponent<WeaponProjectile>()._weaponData = this;
+            GameObject projectileInstance = Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
             _fireCD = 0;
         }
     }

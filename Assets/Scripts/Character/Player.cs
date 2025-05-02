@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, Damageable
 {
     private float _maxHealth = 100f;
-    private float _health;
+    public float _health;
     public float MaxHealth
     {
         get

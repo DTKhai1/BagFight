@@ -39,7 +39,6 @@ public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
                 {
                     if (weapon._type == WeaponType.Attack)
                     {
-                        weapon._weaponProjectile.GetComponent<WeaponProjectile>()._weaponData = weapon;
                         weapon.Fire(transform.position);
                     }
                     if(weapon._type == WeaponType.Self)
@@ -53,7 +52,6 @@ public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
 
     public void AddWeapon(WeaponData weaponData, int index)
     {
-        weaponData._weaponProjectile.GetComponent<WeaponProjectile>()._weaponData = weaponData;
         _playerWeaponList[index] = weaponData;
     }
 

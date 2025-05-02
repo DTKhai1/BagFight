@@ -43,7 +43,7 @@ public class WeaponShop : MonoBehaviour
         WeaponData _copyOfWeapon = ScriptableObject.CreateInstance<WeaponData>();
         _copyOfWeapon._weaponName = _weaponList[index]._weaponName;
         _copyOfWeapon._basedamage = _weaponList[index]._basedamage;
-        _copyOfWeapon._attackSpeed = _weaponList[index]._attackSpeed;
+        _copyOfWeapon._baseAttackSpeed = _weaponList[index]._baseAttackSpeed;
         _copyOfWeapon._icon = _weaponList[index]._icon;
         _copyOfWeapon._price = _weaponList[index]._price;
         _copyOfWeapon._level = _weaponList[index]._level;
