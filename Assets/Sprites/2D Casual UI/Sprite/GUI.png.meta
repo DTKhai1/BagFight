@@ -561,7 +561,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_12
+      name: WeaponPiece_Fill
       rect:
         serializedVersion: 2
         x: 2603
@@ -570,7 +570,7 @@ TextureImporter:
         height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 20, z: 30, w: 20}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -582,7 +582,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_13
+      name: WeaponPiece_Empty
       rect:
         serializedVersion: 2
         x: 2603
@@ -591,7 +591,7 @@ TextureImporter:
         height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 20, z: 30, w: 20}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -897,7 +897,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: P
+      name: StatPanel
       rect:
         serializedVersion: 2
         x: 2166
@@ -906,7 +906,7 @@ TextureImporter:
         height: 798
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 70, y: 70, z: 70, w: 70}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1254,7 +1254,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_52
+      name: Nope
       rect:
         serializedVersion: 2
         x: 2163
@@ -1263,7 +1263,7 @@ TextureImporter:
         height: 270
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1569,7 +1569,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_67
+      name: Exit
       rect:
         serializedVersion: 2
         x: 573
@@ -1623,10 +1623,9 @@ TextureImporter:
     nameFileIdTable:
       ButtonDefault: 21300022
       ButtonOnPress: 21300020
+      Exit: 21300120
       GUI_0: 21300000
       GUI_1: 21300002
-      GUI_12: 21300024
-      GUI_13: 21300026
       GUI_14: 21300028
       GUI_15: 21300030
       GUI_16: 21300032
@@ -1657,7 +1656,6 @@ TextureImporter:
       GUI_48: 21300086
       GUI_5: 21300010
       GUI_51: 21300088
-      GUI_52: 21300090
       GUI_53: 21300092
       GUI_54: 21300094
       GUI_55: 21300096
@@ -1672,17 +1670,19 @@ TextureImporter:
       GUI_64: 21300114
       GUI_65: 21300116
       GUI_66: 21300118
-      GUI_67: 21300120
       GUI_68: 21300122
       GUI_7: 21300014
       GUI_8: 21300016
       GUI_9: 21300018
       Gold: 21300042
       Heart: 21300040
-      P: 21300056
+      Nope: 21300090
       Resume: 21300066
+      StatPanel: 21300056
       VictoryOverDisplay: 21300102
       VictoryOverPanel: 21300054
+      WeaponPiece_Empty: 21300026
+      WeaponPiece_Fill: 21300024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

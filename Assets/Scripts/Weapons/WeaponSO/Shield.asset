@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: 2
   _basedamage: 8
-  _attackSpeed: 1
+  _baseAttackSpeed: 1
   _icon: {fileID: 21300000, guid: 32d8a16b7c73f824089f281a7bf17880, type: 3}
   _price: 10
   _level: 0

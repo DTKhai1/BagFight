@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: 0
   _basedamage: 10
-  _attackSpeed: 0.5
+  _baseAttackSpeed: 0.8
   _icon: {fileID: 21300000, guid: 2937cf9382bb064449f7aae87309b1ad, type: 3}
   _price: 12
   _level: 0
+  _pieces: 0
+  _requiredPieces: 2
+  _wpRarity: 0
   _type: 0
   _weaponProjectile: {fileID: 5246484134059677614, guid: 05c1281626d952246ae32f47f2724a8a, type: 3}

@@ -7,10 +7,10 @@ public class InventoryManager : MonoBehaviour
 {
     public List<InventorySlot> _inventorySlots;
     public GameObject _inventoryItemPrefab;
-    public WeaponManager _weaponManager;
+    public PlayerWeapon _playerWeapon;
     private void Awake()
     {
-        _weaponManager = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponManager>();
+        _playerWeapon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerWeapon>();
     }
     public void AddItem(WeaponData weapon)
     {
@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour
             if (_inventorySlots[i].IsEmpty())
             {
                 SpawnNewItem(weapon, _inventorySlots[i]);
-                _weaponManager.AddWeapon(weapon, i);
+                _playerWeapon.AddWeapon(weapon, i);
                 return;
             }
         }
@@ -46,10 +46,10 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveWeapon(int index)
     {
-        _weaponManager._playerWeaponList[index] = null;
+        _playerWeapon._playerWeaponList[index] = null;
     }
     public void UpdateWeapon(WeaponData weaponData, int index)
     {
-        _weaponManager.UpdateWeapon(weaponData, index);
+        _playerWeapon.UpdateWeapon(weaponData, index);
     }
 }

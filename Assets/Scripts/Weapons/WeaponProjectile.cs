@@ -47,7 +47,7 @@ public class WeaponProjectile : MonoBehaviour, IFixedUpdateObserver
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("weapon data: level: " +_weaponData._level + " damage: " + _weaponData.Damage);
+            Debug.Log("weapon data: level: " +_weaponData._wpRarity + " damage: " + _weaponData.Damage);
             collision.GetComponent<Damageable>().TakeDamage(_weaponData.Damage);
             Destroy(gameObject);
         }

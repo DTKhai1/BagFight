@@ -6,7 +6,7 @@ public enum UITab
     ShopUI,
     WeaponPassUI,
     MainUI,
-    WeaponGalleryUI
+    ArmoryUI
 }
 
 public class MainUIManager : MonoBehaviour
@@ -26,7 +26,7 @@ public class MainUIManager : MonoBehaviour
                     return _UIList[1].GetComponent<RectTransform>();
                 case UITab.MainUI:
                     return _UIList[2].GetComponent<RectTransform>();
-                case UITab.WeaponGalleryUI:
+                case UITab.ArmoryUI:
                     return _UIList[3].GetComponent<RectTransform>();
                 default:
                     return _UIList[2].GetComponent<RectTransform>();
@@ -45,7 +45,7 @@ public class MainUIManager : MonoBehaviour
                     return 1;
                 case UITab.MainUI:
                     return 2;
-                case UITab.WeaponGalleryUI:
+                case UITab.ArmoryUI:
                     return 3;
                 default:
                     return 2;
@@ -71,9 +71,9 @@ public class MainUIManager : MonoBehaviour
     {
         SwitchToTab(UITab.MainUI);
     }
-    public void ChangeToWeaponGalleryUI()
+    public void ChangeToArmoryUI()
     {
-        SwitchToTab(UITab.WeaponGalleryUI);
+        SwitchToTab(UITab.ArmoryUI);
     }
     public void HideAllUI()
     {
@@ -87,9 +87,9 @@ public class MainUIManager : MonoBehaviour
         float _oldTabIndex = _currentTabIndex;
         _currentTab = newTab;
         float _newTabIndex = _currentTabIndex;
+        _UIList[(int)_oldTabIndex].SetActive(false);
         _UIList[(int)_newTabIndex].SetActive(true);
         _UIPos.anchoredPosition = new Vector2(_UIPos.anchoredPosition.x - _screenWidth * (_newTabIndex - _oldTabIndex), _UIPos.anchoredPosition.y);
-        _UIList[(int)_oldTabIndex].SetActive(false);
     }
 
 }

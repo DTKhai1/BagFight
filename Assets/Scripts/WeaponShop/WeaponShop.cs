@@ -46,7 +46,7 @@ public class WeaponShop : MonoBehaviour
         _copyOfWeapon._baseAttackSpeed = _weaponList[index]._baseAttackSpeed;
         _copyOfWeapon._icon = _weaponList[index]._icon;
         _copyOfWeapon._price = _weaponList[index]._price;
-        _copyOfWeapon._level = _weaponList[index]._level;
+        _copyOfWeapon._wpRarity = _weaponList[index]._wpRarity;
         _copyOfWeapon._type = _weaponList[index]._type;
         _copyOfWeapon._weaponProjectile = _weaponList[index]._weaponProjectile;
         _inventoryManager.AddItem(_copyOfWeapon);

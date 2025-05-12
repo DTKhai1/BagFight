@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
+public class PlayerWeapon : MonoBehaviour, IFixedUpdateObserver
 {
     public List<WeaponData> _playerWeaponList = new List<WeaponData>();
     private GameManager _gameManager;
@@ -23,7 +22,7 @@ public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
     }
     private void Start()
     {
-        for(int i =0; i< 9;i++)
+        for (int i = 0; i < 9; i++)
         {
             _playerWeaponList.Add(null);
         }
@@ -35,13 +34,13 @@ public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
         {
             foreach (var weapon in _playerWeaponList)
             {
-                if(weapon != null)
+                if (weapon != null)
                 {
                     if (weapon._type == WeaponType.Attack)
                     {
                         weapon.Fire(transform.position);
                     }
-                    if(weapon._type == WeaponType.Self)
+                    if (weapon._type == WeaponType.Self)
                     {
                         _player.Heal(weapon.Damage);
                     }
@@ -57,7 +56,7 @@ public class WeaponManager : MonoBehaviour, IFixedUpdateObserver
 
     public void UpdateWeapon(WeaponData weaponData, int index)
     {
-        Debug.Log("Weapon updated at index: " + index + " with rariy: " + weaponData._level);
+        Debug.Log("Weapon updated at index: " + index + " with rariy: " + weaponData._wpRarity);
         _playerWeaponList[index] = weaponData;
     }
 }

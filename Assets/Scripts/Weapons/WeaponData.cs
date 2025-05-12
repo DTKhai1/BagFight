@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum WeaponLevel
+public enum WeaponRarity
 {
     common,
     rare,
@@ -32,22 +32,34 @@ public class WeaponData : ScriptableObject
     public float _baseAttackSpeed;
     public Sprite _icon;
     public int _price;
-    public WeaponLevel _level;
+    public int _level;
+    public int _pieces;
+    public int _requiredPieces = 2;
+    public WeaponRarity _wpRarity;
     public WeaponType _type;
     public GameObject _weaponProjectile;
+
+    public float _currentBaseDamage
+    {
+        get { return _basedamage * (1f + _level * 0.2f); }
+    }
+    public bool CanUpgrade()
+    {
+        return _pieces >= _requiredPieces;
+    }
     public Color _backgroundColor
     {
         get
         {
-            switch (_level)
+            switch (_wpRarity)
             {
-                case WeaponLevel.common:
+                case WeaponRarity.common:
                     return Color.white;
-                case WeaponLevel.rare:
+                case WeaponRarity.rare:
                     return Color.blue;
-                case WeaponLevel.epic:
+                case WeaponRarity.epic:
                     return Color.yellow;
-                case WeaponLevel.legendary:
+                case WeaponRarity.legendary:
                     return Color.red;
                 default:
                     return Color.white;
@@ -58,15 +70,15 @@ public class WeaponData : ScriptableObject
     {
         get
         {
-            switch (_level)
+            switch (_wpRarity)
             {
-                case WeaponLevel.common:
+                case WeaponRarity.common:
                     return _baseAttackSpeed;
-                case WeaponLevel.rare:
+                case WeaponRarity.rare:
                     return _baseAttackSpeed * 1.5f;
-                case WeaponLevel.epic:
+                case WeaponRarity.epic:
                     return _baseAttackSpeed * 2f;
-                case WeaponLevel.legendary:
+                case WeaponRarity.legendary:
                     return _baseAttackSpeed * 2.5f;
                 default:
                     return _baseAttackSpeed;
@@ -78,15 +90,15 @@ public class WeaponData : ScriptableObject
     {
         get
         {
-            switch (_level)
+            switch (_wpRarity)
             {
-                case WeaponLevel.common:
+                case WeaponRarity.common:
                     return 1f;
-                case WeaponLevel.rare:
+                case WeaponRarity.rare:
                     return 2f;
-                case WeaponLevel.epic:
+                case WeaponRarity.epic:
                     return 3f;
-                case WeaponLevel.legendary:
+                case WeaponRarity.legendary:
                     return 4f;
                 default:
                     return 1f;
@@ -97,27 +109,36 @@ public class WeaponData : ScriptableObject
     {
         get 
         {
-            return _basedamage * RarityMultiplier; 
+            return _currentBaseDamage * RarityMultiplier; 
         }
     }
-
     public void UpgradeLevel()
     {
-        switch (_level)
+        if (CanUpgrade())
         {
-            case WeaponLevel.common:
-                _level = WeaponLevel.rare;
+            _pieces -= _requiredPieces;
+            _level++;
+            _requiredPieces *= 2;
+        }
+        else Debug.Log("Not enough pieces to upgrade.");
+    }
+    public void UpgradeRarity()
+    {
+        switch (_wpRarity)
+        {
+            case WeaponRarity.common:
+                _wpRarity = WeaponRarity.rare;
                 Debug.Log("Weapon upgraded to rare.");
                 break;
-            case WeaponLevel.rare:
+            case WeaponRarity.rare:
                 Debug.Log("Weapon upgraded to epic.");
-                _level = WeaponLevel.epic;
+                _wpRarity = WeaponRarity.epic;
                 break;
-            case WeaponLevel.epic:
+            case WeaponRarity.epic:
                 Debug.Log("Weapon upgraded to legendary.");
-                _level = WeaponLevel.legendary;
+                _wpRarity = WeaponRarity.legendary;
                 break;
-            case WeaponLevel.legendary:
+            case WeaponRarity.legendary:
                 Debug.Log("Weapon is already at max level.");
                 break;
         }

@@ -27,10 +27,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             GameObject droppedItem = eventData.pointerDrag;
             InventoryItem item = eventData.pointerDrag.GetComponent<InventoryItem>();
             InventoryItem currentItem = transform.GetChild(0).GetComponent<InventoryItem>();
-            if (currentItem._weaponData._weaponName == item._weaponData._weaponName && currentItem._weaponData._level == item._weaponData._level)
+            if (currentItem._weaponData._weaponName == item._weaponData._weaponName && currentItem._weaponData._wpRarity == item._weaponData._wpRarity)
             {
                 _inventoryManager.RemoveWeapon(item._inventoryPosition);
-                currentItem._weaponData.UpgradeLevel();
+                currentItem._weaponData.UpgradeRarity();
                 currentItem.InitializeItem(currentItem._weaponData);
                 _inventoryManager.UpdateWeapon(currentItem._weaponData, currentItem._inventoryPosition);
                 Destroy(item.gameObject);
