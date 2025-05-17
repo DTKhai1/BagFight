@@ -43,10 +43,6 @@ public class WeaponData : ScriptableObject
     {
         get { return _basedamage * (1f + _level * 0.2f); }
     }
-    public bool CanUpgrade()
-    {
-        return _pieces >= _requiredPieces;
-    }
     public Color _backgroundColor
     {
         get
@@ -111,6 +107,14 @@ public class WeaponData : ScriptableObject
         {
             return _currentBaseDamage * RarityMultiplier; 
         }
+    }
+    public void AddWeaponPiece(int amount)
+    {
+        _pieces += amount;
+    }
+    public bool CanUpgrade()
+    {
+        return _pieces >= _requiredPieces;
     }
     public void UpgradeLevel()
     {
