@@ -528,7 +528,7 @@ TextureImporter:
         height: 129
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 50, z: 50, w: 50}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -549,7 +549,7 @@ TextureImporter:
         height: 129
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 50, z: 50, w: 50}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -876,7 +876,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: VictoryOverPanel
+      name: BigPanel
       rect:
         serializedVersion: 2
         x: 748
@@ -897,7 +897,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StatPanel
+      name: SmallPanel
       rect:
         serializedVersion: 2
         x: 2166
@@ -1023,7 +1023,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_34
+      name: Pause
       rect:
         serializedVersion: 2
         x: 239
@@ -1044,7 +1044,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_35
+      name: Retry
       rect:
         serializedVersion: 2
         x: 387
@@ -1107,7 +1107,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_43
+      name: SettingIcon
       rect:
         serializedVersion: 2
         x: 213
@@ -1254,7 +1254,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Nope
+      name: SquareButtonOnPress
       rect:
         serializedVersion: 2
         x: 2163
@@ -1275,7 +1275,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_53
+      name: SquareButtonDefault
       rect:
         serializedVersion: 2
         x: 2456
@@ -1284,7 +1284,7 @@ TextureImporter:
         height: 270
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
+      border: {x: 0, y: 80, z: 0, w: 80}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1590,7 +1590,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_68
+      name: OnPanelTitle
       rect:
         serializedVersion: 2
         x: 2152
@@ -1599,7 +1599,7 @@ TextureImporter:
         height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 200, y: 0, z: 200, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1621,6 +1621,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BigPanel: 21300054
       ButtonDefault: 21300022
       ButtonOnPress: 21300020
       Exit: 21300120
@@ -1643,12 +1644,9 @@ TextureImporter:
       GUI_30: 21300060
       GUI_31: 21300062
       GUI_32: 21300064
-      GUI_34: 21300068
-      GUI_35: 21300070
       GUI_36: 21300072
       GUI_4: 21300008
       GUI_42: 21300074
-      GUI_43: 21300076
       GUI_44: 21300078
       GUI_45: 21300080
       GUI_46: 21300082
@@ -1656,7 +1654,6 @@ TextureImporter:
       GUI_48: 21300086
       GUI_5: 21300010
       GUI_51: 21300088
-      GUI_53: 21300092
       GUI_54: 21300094
       GUI_55: 21300096
       GUI_56: 21300098
@@ -1670,17 +1667,20 @@ TextureImporter:
       GUI_64: 21300114
       GUI_65: 21300116
       GUI_66: 21300118
-      GUI_68: 21300122
       GUI_7: 21300014
       GUI_8: 21300016
       GUI_9: 21300018
       Gold: 21300042
       Heart: 21300040
-      Nope: 21300090
+      OnPanelTitle: 21300122
+      Pause: 21300068
       Resume: 21300066
-      StatPanel: 21300056
+      Retry: 21300070
+      SettingIcon: 21300076
+      SmallPanel: 21300056
+      SquareButtonDefault: 21300092
+      SquareButtonOnPress: 21300090
       VictoryOverDisplay: 21300102
-      VictoryOverPanel: 21300054
       WeaponPiece_Empty: 21300026
       WeaponPiece_Fill: 21300024
   mipmapLimitGroupName: 

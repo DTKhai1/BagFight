@@ -39,12 +39,12 @@ public class FadeRemoveBehavior : StateMachineBehaviour
 
         if (_timeElapsed > _fadeTime)
         {
-            _gameManager.EnemyManager._totalEnemyLeft--;
-            _gameManager.EnemyManager._currentEnemyLeft--;
-            if (_gameManager.EnemyManager.IsWaveClear())
+            _gameManager._enemyManager._totalEnemyLeft--;
+            _gameManager._enemyManager._currentEnemyLeft--;
+            if (_gameManager._enemyManager.IsWaveClear())
             {
-                _gameManager.EnemyManager._waveLeft--;
-                if (_gameManager.EnemyManager.IsLevelFinished())
+                _gameManager._enemyManager._waveLeft--;
+                if (_gameManager._enemyManager.IsLevelFinished())
                 {
                     _gameManager.ChangeState(GameState.Victory);
                 }

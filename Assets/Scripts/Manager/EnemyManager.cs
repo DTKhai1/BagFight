@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyManager", menuName = "ScriptableObjects/EnemyManager")]
+[CreateAssetMenu(fileName = "EnemyManager", menuName = "ScriptableObjects/Manager/EnemyManager")]
 public class EnemyManager : ScriptableObject
 {
     public int _totalEnemyLeft;

@@ -71,11 +71,11 @@ public class WeaponData : ScriptableObject
                 case WeaponRarity.common:
                     return _baseAttackSpeed;
                 case WeaponRarity.rare:
-                    return _baseAttackSpeed * 1.5f;
+                    return _baseAttackSpeed * 1.2f;
                 case WeaponRarity.epic:
-                    return _baseAttackSpeed * 2f;
+                    return _baseAttackSpeed * 1.5f;
                 case WeaponRarity.legendary:
-                    return _baseAttackSpeed * 2.5f;
+                    return _baseAttackSpeed * 1.8f;
                 default:
                     return _baseAttackSpeed;
             }

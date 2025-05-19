@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public enum GameState
 {
-    MainMenu,
+    Home,
     Playing,
     GameOver,
     Victory,
     Pause,
-    Shop
 }
 public enum PlayingState
 {
@@ -22,7 +22,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public PlayingState CurrentPlayingState { get; private set; }
     public GameState CurrentState { get; private set; }
-    public EnemyManager EnemyManager;
+    public EnemyManager _enemyManager;
+    public UIManager _uiManager;
+
+    private string currentSceneName;
+    private bool isLoading;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,14 +37,30 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
-
-
     }
     private void Start()
     {
-        CurrentState = GameState.MainMenu;
+        ChangeScene(SceneName.Home);
     }
-    
+    //Go to new scene
+    public async void ChangeScene(string sceneName)
+    {
+        if (isLoading || sceneName == currentSceneName) return;
+        isLoading = true;
+
+        try
+        {
+            LoadingNewScene._nextScene = sceneName;
+            Debug.Log("Go to scene: " + sceneName);
+            SceneManager.LoadScene(SceneName.LoadingScene);
+
+            currentSceneName = sceneName;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -52,56 +72,53 @@ public class GameManager : MonoBehaviour
 
     private void HandleStateChange()
     {
-        HideAllMenus();
-
-        switch (CurrentState)
+        if(_uiManager != null)
         {
-            case GameState.MainMenu:
-                SceneManager.LoadScene(0);
-                break;
-            case GameState.Pause:
-                Debug.Log("Pause Menu");
-                //Time.timeScale = 0;
-                break;
-            case GameState.GameOver:
-                Debug.Log("Game Over Menu");
-                //Time.timeScale = 0;
-                break;
-            case GameState.Victory:
-                Debug.Log("Victory Menu");
-                //Time.timeScale = 0;
-                break;
+            HideAllUI();
+
+            switch (CurrentState)
+            {
+                case GameState.Playing:
+                    _uiManager.StopPanel.SetActive(false);
+                    _uiManager.PlayUI.SetActive(true);
+                    Time.timeScale = 1;
+                    break;
+                case GameState.Pause:
+                    _uiManager.StopPanel.SetActive(true);
+                    _uiManager.PauseUI.SetActive(true);
+                    Debug.Log("Pause Menu");
+                    Time.timeScale = 0;
+                    break;
+                case GameState.GameOver:
+                    _uiManager.StopPanel.SetActive(true);
+                    _uiManager.GameOverUI.SetActive(true);
+                    Debug.Log("Game Over Menu");
+                    Time.timeScale = 0;
+                    break;
+                case GameState.Victory:
+                    _uiManager.StopPanel.SetActive(true);
+                    _uiManager.VictoryUI.SetActive(true);
+                    Debug.Log("Victory Menu");
+                    Time.timeScale = 0;
+                    break;
+                case GameState.Home:
+                    Time.timeScale = 1;
+                    break;
+            }
         }
     }
-    private void HideAllMenus()
+    private void HideAllUI()
     {
+        _uiManager.HideAllUI();
     }
 
-    //click events
-    public void ChangeToPauseMenu()
-    {
-        ChangeState(GameState.Pause);
-    }
-    public void ChangeToMainMenu()
-    {
-        ChangeState(GameState.MainMenu);
-    }
-    public void ChangeToVictoryUI()
-    {
-        ChangeState(GameState.Victory);
-    }
-    public void ChangeToGameOverUI()
-    {
-        ChangeState(GameState.GameOver);
-    }
+    //play events
     public void ChangeToEnemySpawn()
     {
-        Debug.Log("Enemy Spawn");
         CurrentPlayingState = PlayingState.EnemySpawn;
     }
     public void ChangeToEvent()
     {
-        Debug.Log("Event");
         CurrentPlayingState = PlayingState.Event;
     }
 }

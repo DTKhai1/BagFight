@@ -20,7 +20,7 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
     private void Start()
     {
         ResetForNewWave();
-        _gameManager.EnemyManager._waveLeft = _totalWave;
+        _gameManager._enemyManager._waveLeft = _totalWave;
     }
     private void SpawnEnemy()
     {
@@ -29,14 +29,14 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
             Vector2 spawnPosition = new Vector2(Random.Range(_spawnArea.bounds.min.x, _spawnArea.bounds.max.x), Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y));
             GameObject enemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
             _enemyCount++;
-            _gameManager.EnemyManager._currentEnemyLeft++;
+            _gameManager._enemyManager._currentEnemyLeft++;
         }
     }
     public void ResetForNewWave()
     {
         _enemyCount = 0;
-        _gameManager.EnemyManager._currentEnemyLeft = 0;
-        _gameManager.EnemyManager._totalEnemyLeft = _totalEnemy;
+        _gameManager._enemyManager._currentEnemyLeft = 0;
+        _gameManager._enemyManager._totalEnemyLeft = _totalEnemy;
     }
     public void ContinueLevel()
     {

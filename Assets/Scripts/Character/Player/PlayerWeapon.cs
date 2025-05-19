@@ -30,7 +30,7 @@ public class PlayerWeapon : MonoBehaviour, IFixedUpdateObserver
 
     public void ObservedFixedUpdate()
     {
-        if (_gameManager.EnemyManager._currentEnemyLeft > 0)
+        if (_gameManager._enemyManager._currentEnemyLeft > 0)
         {
             foreach (var weapon in _playerWeaponList)
             {

@@ -17,9 +17,9 @@ MonoBehaviour:
   _baseAttackSpeed: 1
   _icon: {fileID: 21300000, guid: 9314e5e726849aa45b93855a3a84a311, type: 3}
   _price: 8
-  _level: 1
-  _pieces: 0
-  _requiredPieces: 2
+  _level: 3
+  _pieces: 2
+  _requiredPieces: 8
   _wpRarity: 0
   _type: 0
   _weaponProjectile: {fileID: 6424956622748664307, guid: 9edd0f0ad5c08884b8ad604ef36c06c6, type: 3}
