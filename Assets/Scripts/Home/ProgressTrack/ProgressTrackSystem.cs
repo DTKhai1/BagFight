@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class ProgressTrackSystem : MonoBehaviour
 {
-    public int _currentLevel;
-    public float _currentExp;
-    private float _levelExp = 200f;
-    private int _maxLevel = 20;
+    public GameManager _gameManager;
+    public PlayerData _playerData;
+
+    private int _currentLevel;
+    private int _currentExp;
+    private int _levelExp = 200;
+    private int _maxLevel;
 
     public RectTransform _content;
     public GameObject _progressLevelPrefab;
@@ -16,6 +19,12 @@ public class ProgressTrackSystem : MonoBehaviour
 
 
     public GameObject _rewardPanel;
+    private void Awake()
+    {
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _playerData = _gameManager._playerData;
+        _maxLevel = _playerData._maxLevelProgress;
+    }
     private void Start()
     {
         InitializeProgressTrack();
@@ -23,6 +32,8 @@ public class ProgressTrackSystem : MonoBehaviour
 
     public void InitializeProgressTrack()
     {
+        _currentLevel = _playerData._progressTrackXP/_levelExp;
+        _currentExp = _playerData._progressTrackXP - (_currentLevel * _levelExp);
         ClosePanel();
         for (int i = 0; i< _maxLevel; i++)
         {
@@ -39,9 +50,10 @@ public class ProgressTrackSystem : MonoBehaviour
             ProgressLevel _progressLevel = _progressLevelList[i].GetComponent<ProgressLevel>();
             _progressLevel.FillFullBar();
             _progressLevel._isUnlocked = true;
+            _progressLevel._isRewarded = _playerData._isRewardReceived[i];
         }
         ProgressLevel _progressCurrentLevel = _progressLevelList[_currentLevel].GetComponent<ProgressLevel>();
-        _progressCurrentLevel.FillImage(_currentExp / _levelExp);
+        _progressCurrentLevel.FillImage((float)_currentExp / (float)_levelExp);
         _progressCurrentLevel._isUnlocked = false;
         for (int i = _currentLevel + 1; i < _maxLevel; i++)
         {

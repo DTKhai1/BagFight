@@ -9,6 +9,7 @@ TagManager:
   - MainUI
   - Inventory
   - ProgressTrack
+  - ShopUI
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerAttackHitbox
+  - AttackWeapon
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 

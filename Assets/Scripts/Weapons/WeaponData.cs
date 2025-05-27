@@ -12,8 +12,9 @@ public enum WeaponRarity
 }
 public enum WeaponType
 {
-    Attack,
-    Self
+    Single,
+    Blast,
+    Pierce
 }
 public enum WeaponName
 {
@@ -23,6 +24,12 @@ public enum WeaponName
     HealPotion,
     Sword,
     Wand,
+}
+public enum WeaponTarget
+{
+    Neareast,
+    Random,
+    Self
 }
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
 public class WeaponData : ScriptableObject
@@ -34,14 +41,19 @@ public class WeaponData : ScriptableObject
     public int _price;
     public int _level;
     public int _pieces;
-    public int _requiredPieces = 2;
     public WeaponRarity _wpRarity;
     public WeaponType _type;
+    public WeaponTarget _target;
     public GameObject _weaponProjectile;
-
+    public int _requiredPieces { 
+        get
+        {
+            return (int)Mathf.Pow(2, _level);
+        } 
+    }
     public float _currentBaseDamage
     {
-        get { return _basedamage * (1f + _level * 0.2f); }
+        get { return _basedamage * (1f + (_level - 1) * 0.2f); }
     }
     public Color _backgroundColor
     {
@@ -122,9 +134,7 @@ public class WeaponData : ScriptableObject
         {
             _pieces -= _requiredPieces;
             _level++;
-            _requiredPieces *= 2;
         }
-        else Debug.Log("Not enough pieces to upgrade.");
     }
     public void UpgradeRarity()
     {
@@ -132,18 +142,14 @@ public class WeaponData : ScriptableObject
         {
             case WeaponRarity.common:
                 _wpRarity = WeaponRarity.rare;
-                Debug.Log("Weapon upgraded to rare.");
                 break;
             case WeaponRarity.rare:
-                Debug.Log("Weapon upgraded to epic.");
                 _wpRarity = WeaponRarity.epic;
                 break;
             case WeaponRarity.epic:
-                Debug.Log("Weapon upgraded to legendary.");
                 _wpRarity = WeaponRarity.legendary;
                 break;
             case WeaponRarity.legendary:
-                Debug.Log("Weapon is already at max level.");
                 break;
         }
     }
@@ -152,8 +158,19 @@ public class WeaponData : ScriptableObject
         _fireCD += Time.fixedDeltaTime;
         if (_fireCD >= 1 / AttackSpeed)
         {
-            _weaponProjectile.GetComponent<WeaponProjectile>()._weaponData = this;
+            Debug.Log($" Weapon: {_weaponName}, Target Type: {_target}, Weapon Type: {_type}");
+            if(_weaponProjectile == null)
+            {
+                Debug.LogError("Weapon projectile is not assigned.");
+                return;
+            }
             GameObject projectileInstance = Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
+            if(projectileInstance == null)
+            {
+                Debug.LogError("Failed to instantiate weapon projectile.");
+                return;
+            }
+            projectileInstance.GetComponent<WeaponProjectile>().Initialize(this, firePoint);
             _fireCD = 0;
         }
     }

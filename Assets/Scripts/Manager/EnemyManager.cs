@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyManager", menuName = "ScriptableObjects/Manager/EnemyManager")]
-public class EnemyManager : ScriptableObject
+public class EnemyManager: MonoBehaviour
 {
     public int _totalEnemyLeft;
     public int _waveLeft;
@@ -25,7 +24,7 @@ public class EnemyManager : ScriptableObject
         }
         return false;
     }
-    public bool IsEnemyLeft()
+    public  bool IsEnemyLeft()
     {
         if (_currentEnemyLeft > 0)
         {

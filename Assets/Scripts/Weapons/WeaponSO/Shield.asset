@@ -19,7 +19,7 @@ MonoBehaviour:
   _price: 10
   _level: 1
   _pieces: 0
-  _requiredPieces: 2
   _wpRarity: 0
-  _type: 1
+  _type: 0
+  _target: 2
   _weaponProjectile: {fileID: 5246484134059677614, guid: 05c1281626d952246ae32f47f2724a8a, type: 3}

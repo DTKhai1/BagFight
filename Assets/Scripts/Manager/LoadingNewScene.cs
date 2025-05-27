@@ -23,6 +23,7 @@ public class LoadingNewScene : MonoBehaviour, IUpdateObserver
     }
     public async Task LoadLevel(string sceneName)
     {
+        await UnloadOtherScenesAsync();
         _loadingComplete = false;
         if (sceneName != SceneName.Play)
         {
@@ -66,17 +67,51 @@ public class LoadingNewScene : MonoBehaviour, IUpdateObserver
                 Debug.Log("target: " + _target);
             }
             while (_target < 0.9f);
-
+            do
+            {
+                await Task.Delay(10);
+            } while (_loadingBar.value < _target);
             foreach (var op in sceneOperations)
             {
                 op.allowSceneActivation = true;
             }
         }
     }
-    public async void ChangeScene(string SceneName)
+    private async Task UnloadOtherScenesAsync()
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+
+        // Collect scenes to unload first (since SceneManager.sceneCount changes as scenes unload)
+        var scenesToUnload = new System.Collections.Generic.List<Scene>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene != activeScene)
+                scenesToUnload.Add(scene);
+        }
+
+        foreach (var scene in scenesToUnload)
+        {
+            AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(scene);
+            if (unloadOp != null)
+            {
+                while (!unloadOp.isDone)
+                {
+                    await Task.Yield();
+                }
+            }
+        }
+    }
+    private void OnEnable()
     {
         UpdateManager.RegisterUpdateObserver(this);
-        await LoadLevel(SceneName);
+    }
+    public void ChangeScene(string SceneName)
+    {
+        LoadLevel(SceneName);
+    }
+    private void OnDisable()
+    {
         UpdateManager.UnregisterUpdateObserver(this);
     }
     public void ObservedUpdate()

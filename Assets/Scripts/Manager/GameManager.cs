@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum GameState
 {
+    None,
     Home,
     Playing,
     GameOver,
@@ -20,10 +21,15 @@ public enum PlayingState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public PlayingState CurrentPlayingState { get; private set; }
+    public PlayingState CurrentPlayingState { get; set; }
     public GameState CurrentState { get; private set; }
-    public EnemyManager _enemyManager;
     public UIManager _uiManager;
+    public EnemyManager _enemyManager;
+    public RewardManager _rewardManager;
+    public LevelManager _levelManager;
+    public PlayerData _playerData;
+    public WeaponDictionary _weaponDictionary;
+    public WeaponShop _weaponShop;
 
     private string currentSceneName;
     private bool isLoading;
@@ -37,9 +43,21 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
+        _enemyManager = GetComponent<EnemyManager>();
+        _rewardManager = GetComponent<RewardManager>();
+        _levelManager = GetComponent<LevelManager>();
+        if (_playerData._isRewardReceived.Count < _playerData._maxLevelProgress)
+        {
+            for (int i = _playerData._isRewardReceived.Count; i < _playerData._maxLevelProgress; i++)
+            {
+                bool temp = false;
+                _playerData._isRewardReceived.Add(temp);
+            }
+        }
     }
     private void Start()
     {
+        ChangeState(GameState.Home);
         ChangeScene(SceneName.Home);
     }
     //Go to new scene
@@ -51,7 +69,6 @@ public class GameManager : MonoBehaviour
         try
         {
             LoadingNewScene._nextScene = sceneName;
-            Debug.Log("Go to scene: " + sceneName);
             SceneManager.LoadScene(SceneName.LoadingScene);
 
             currentSceneName = sceneName;
@@ -96,6 +113,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 0;
                     break;
                 case GameState.Victory:
+                    GetVictoryReward();
                     _uiManager.StopPanel.SetActive(true);
                     _uiManager.VictoryUI.SetActive(true);
                     Debug.Log("Victory Menu");
@@ -103,6 +121,8 @@ public class GameManager : MonoBehaviour
                     break;
                 case GameState.Home:
                     Time.timeScale = 1;
+                    Debug.Log("Home Menu");
+                    ChangeScene(SceneName.Home);
                     break;
             }
         }
@@ -113,12 +133,34 @@ public class GameManager : MonoBehaviour
     }
 
     //play events
-    public void ChangeToEnemySpawn()
+    public  void ChangeToEnemySpawn()
     {
         CurrentPlayingState = PlayingState.EnemySpawn;
+        MoveShopUI();
     }
-    public void ChangeToEvent()
+    public  void ChangeToEvent()
     {
         CurrentPlayingState = PlayingState.Event;
+        MoveShopUI();
+    }
+    public async void MoveShopUI()
+    {
+        await _weaponShop.MoveShopUI();
+    }
+    public void GetVictoryReward()
+    {
+        ProgressXP _progressXP = new ProgressXP(100);
+        Gold _gold;
+        if(_levelManager._currentLevelType == LevelType.Normal)
+        {
+            _gold = new Gold(100);
+        }
+        else
+        {
+            _gold = new Gold(200);
+        }
+        _rewardManager.AddGold(_gold._value);
+        _rewardManager.AddProgressXP(_progressXP._value);
+        _uiManager.UpdateReward(_gold._value, _progressXP._value);
     }
 }

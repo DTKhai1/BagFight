@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,9 @@ public class UIManager : MonoBehaviour
     public GameObject VictoryUI;
     public GameObject GameOverUI;
     public GameObject StopPanel;
+
+    public TMP_Text _goldAmount;
+    public TMP_Text _progressXPAmount;
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -48,5 +52,10 @@ public class UIManager : MonoBehaviour
     public void ChangeToPlay()
     {
         _gameManager.ChangeState(GameState.Playing);
+    }
+    public void UpdateReward(int GoldAmount, int XPAmount)
+    {
+        _goldAmount.text = "+ " + GoldAmount.ToString();
+        _progressXPAmount.text = "+ " + XPAmount.ToString() + " XP";
     }
 }

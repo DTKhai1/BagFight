@@ -9,6 +9,10 @@ public interface IFixedUpdateObserver
 {
     void ObservedFixedUpdate();
 }
+public interface ILateUpdateObserver
+{
+    void ObservedLateUpdate();
+}
 public class UpdateManager : MonoBehaviour
 {
     private static List<IUpdateObserver> _observers = new List<IUpdateObserver>();
@@ -18,6 +22,10 @@ public class UpdateManager : MonoBehaviour
     private static List<IFixedUpdateObserver> _fixedObservers = new List<IFixedUpdateObserver>();
     private static List<IFixedUpdateObserver> _pendingFixedObservers = new List<IFixedUpdateObserver>();
     private static int _currentFixedUpdateIndex;
+
+    private static List<ILateUpdateObserver> _lateObservers = new List<ILateUpdateObserver>();
+    private static List<ILateUpdateObserver> _pendingLateObservers = new List<ILateUpdateObserver>();
+    private static int _currentLateUpdateIndex;
     private void Awake()
     {
         _observers.Clear();
@@ -67,5 +75,26 @@ public class UpdateManager : MonoBehaviour
     {
         _fixedObservers.Remove(observer);
         _currentFixedUpdateIndex--;
+    }
+
+    private void LateUpdate()
+    {
+        for (_currentLateUpdateIndex = _lateObservers.Count - 1; _currentLateUpdateIndex >= 0; _currentLateUpdateIndex--)
+        {
+            if (_lateObservers[_currentLateUpdateIndex] != null)
+                _lateObservers[_currentLateUpdateIndex].ObservedLateUpdate();
+        }
+        _pendingLateObservers.RemoveAll(observer => observer == null);
+        _lateObservers.AddRange(_pendingLateObservers);
+        _pendingLateObservers.Clear();
+    }
+    public static void RegisterLateUpdateObserver(ILateUpdateObserver observer)
+    {
+        _pendingLateObservers.Add(observer);
+    }
+    public static void UnregisterLateUpdateObserver(ILateUpdateObserver observer)
+    {
+        _lateObservers.Remove(observer);
+        _currentLateUpdateIndex--;
     }
 }

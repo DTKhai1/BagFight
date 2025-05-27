@@ -6,11 +6,33 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
 {
     public GameObject _enemyPrefab;
     public Collider2D _spawnArea;
-    public float _spawnInterval = 2f;
-    public int _totalWave = 3;
-    public int _totalEnemy = 15;
+    private int _totalWave = 2;
+    private int _totalEnemy = 10;
     private int _enemyCount;
-    private float _spawnTimer = 0f;
+    private int _groupEnemyAmount;
+    private int GroupEnemyAmount
+    {
+        get { return _groupEnemyAmount; }
+        set
+        {
+            _groupEnemyAmount = value;
+            if (_groupEnemyAmount <= 0)
+            {
+                _isSpawning = false;
+            }
+            else
+            {
+                _isSpawning = true;
+            }
+        }
+    }
+
+    private float _groupSpawnInterval = 2.5f;
+    private float _groupSpawnTimer;
+    private float _spawnTime = 0.25f;
+    private float _spawnInterval = 0.5f;
+    private bool _isSpawning;
+
     private GameManager _gameManager;
     private void Awake()
     {
@@ -21,6 +43,7 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
     {
         ResetForNewWave();
         _gameManager._enemyManager._waveLeft = _totalWave;
+        _groupSpawnTimer = 2f;
     }
     private void SpawnEnemy()
     {
@@ -53,13 +76,21 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
     }
     public void ObservedFixedUpdate()
     {
-        _spawnTimer += Time.fixedDeltaTime;
-        if(_gameManager.CurrentPlayingState == PlayingState.EnemySpawn)
+        _spawnTime += Time.fixedDeltaTime;
+        _groupSpawnTimer += Time.fixedDeltaTime;
+        if (_gameManager.CurrentPlayingState == PlayingState.EnemySpawn)
         {
-            if(_spawnTimer >= _spawnInterval)
+            if(_groupSpawnTimer >= _groupSpawnInterval)
+            {
+                GroupEnemyAmount = 3;
+                _groupSpawnTimer = 0f;
+            }
+            if(_spawnTime >= _spawnInterval && _isSpawning)
             {
                 SpawnEnemy();
-                _spawnTimer = 0f;
+                _spawnTime = 0;
+                GroupEnemyAmount--;
+                Debug.Log("groupEnemyAmount: " + GroupEnemyAmount + " spawning? " + _isSpawning);
             }
         }
     }
