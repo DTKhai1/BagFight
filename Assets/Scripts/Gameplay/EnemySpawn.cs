@@ -42,7 +42,7 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
     private void Start()
     {
         ResetForNewWave();
-        _gameManager._enemyManager._waveLeft = _totalWave;
+        _gameManager._levelManager._waveLeft = _totalWave;
         _groupSpawnTimer = 2f;
     }
     private void SpawnEnemy()
@@ -52,14 +52,14 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
             Vector2 spawnPosition = new Vector2(Random.Range(_spawnArea.bounds.min.x, _spawnArea.bounds.max.x), Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y));
             GameObject enemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
             _enemyCount++;
-            _gameManager._enemyManager._currentEnemyLeft++;
+            _gameManager._levelManager._currentEnemyLeft++;
         }
     }
     public void ResetForNewWave()
     {
         _enemyCount = 0;
-        _gameManager._enemyManager._currentEnemyLeft = 0;
-        _gameManager._enemyManager._totalEnemyLeft = _totalEnemy;
+        _gameManager._levelManager._currentEnemyLeft = 0;
+        _gameManager._levelManager._totalEnemyLeft = _totalEnemy;
     }
     public void ContinueLevel()
     {
@@ -90,7 +90,6 @@ public class EnemySpawn : MonoBehaviour, IFixedUpdateObserver
                 SpawnEnemy();
                 _spawnTime = 0;
                 GroupEnemyAmount--;
-                Debug.Log("groupEnemyAmount: " + GroupEnemyAmount + " spawning? " + _isSpawning);
             }
         }
     }

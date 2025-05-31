@@ -15,7 +15,7 @@ MonoBehaviour:
   _weaponName: 3
   _basedamage: 10
   _baseAttackSpeed: 1
-  _icon: {fileID: 21300000, guid: 6249f6601a75f2c43bd344007ab2049c, type: 3}
+  _icon: {fileID: 21300000, guid: a4bb37021143e2b41864823e7f69c790, type: 3}
   _price: 8
   _level: 1
   _pieces: 0

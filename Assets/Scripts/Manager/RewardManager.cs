@@ -7,6 +7,11 @@ public class RewardManager : MonoBehaviour
 {
     GameManager _gameManager;
     public PlayerData _playerData;
+    private void Awake()
+    {
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _playerData = _gameManager._playerData;
+    }
     public void AddGold(int amount)
     {
         _playerData._gold += amount;
@@ -15,10 +20,9 @@ public class RewardManager : MonoBehaviour
     {
         _playerData._progressTrackXP += amount;
     }
-    private void Awake()
+    public void AddWeaponPiece(WeaponData weaponData, int amount)
     {
-        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        _playerData = _gameManager._playerData;
+        weaponData.AddWeaponPiece(amount);
     }
 }
 public class Gold : Reward

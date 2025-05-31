@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 public enum UITab
 {
     ShopUI,
@@ -11,6 +12,7 @@ public enum UITab
 
 public class HomeUIManager : MonoBehaviour
 {
+    public UnityEvent OnUIChange;
     public GameObject[] _UIList;
     public UITab _currentTab;
     public RectTransform _UIPos;
@@ -91,5 +93,8 @@ public class HomeUIManager : MonoBehaviour
         _UIList[(int)_newTabIndex].SetActive(true);
         _UIPos.anchoredPosition = new Vector2(_UIPos.anchoredPosition.x - _screenWidth * (_newTabIndex - _oldTabIndex), _UIPos.anchoredPosition.y);
     }
-
+    public void UpdateDisplay()
+    {
+        OnUIChange?.Invoke();
+    }
 }

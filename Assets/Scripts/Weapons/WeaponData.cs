@@ -24,6 +24,7 @@ public enum WeaponName
     HealPotion,
     Sword,
     Wand,
+    Dynamite
 }
 public enum WeaponTarget
 {
@@ -44,7 +45,6 @@ public class WeaponData : ScriptableObject
     public WeaponRarity _wpRarity;
     public WeaponType _type;
     public WeaponTarget _target;
-    public GameObject _weaponProjectile;
     public int _requiredPieces { 
         get
         {
@@ -53,7 +53,7 @@ public class WeaponData : ScriptableObject
     }
     public float _currentBaseDamage
     {
-        get { return _basedamage * (1f + (_level - 1) * 0.2f); }
+        get { return _basedamage * (1f + (_level - 1) * 0.4f); }
     }
     public Color _backgroundColor
     {
@@ -93,7 +93,7 @@ public class WeaponData : ScriptableObject
             }
         }
     }
-    private float _fireCD = 0;
+    public float _fireCD = 0;
     public float RarityMultiplier
     {
         get
@@ -151,27 +151,6 @@ public class WeaponData : ScriptableObject
                 break;
             case WeaponRarity.legendary:
                 break;
-        }
-    }
-    public void Fire(Vector2 firePoint)
-    {
-        _fireCD += Time.fixedDeltaTime;
-        if (_fireCD >= 1 / AttackSpeed)
-        {
-            Debug.Log($" Weapon: {_weaponName}, Target Type: {_target}, Weapon Type: {_type}");
-            if(_weaponProjectile == null)
-            {
-                Debug.LogError("Weapon projectile is not assigned.");
-                return;
-            }
-            GameObject projectileInstance = Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
-            if(projectileInstance == null)
-            {
-                Debug.LogError("Failed to instantiate weapon projectile.");
-                return;
-            }
-            projectileInstance.GetComponent<WeaponProjectile>().Initialize(this, firePoint);
-            _fireCD = 0;
         }
     }
 }

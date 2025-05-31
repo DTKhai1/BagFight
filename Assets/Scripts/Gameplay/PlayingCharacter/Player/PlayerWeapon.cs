@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour, IFixedUpdateObserver
     public List<WeaponData> _playerWeaponList = new List<WeaponData>();
     private GameManager _gameManager;
     public Transform _firePoint;
+    public GameObject _weaponProjectile;
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -29,13 +30,13 @@ public class PlayerWeapon : MonoBehaviour, IFixedUpdateObserver
 
     public void ObservedFixedUpdate()
     {
-        if (_gameManager._enemyManager._currentEnemyLeft > 0)
+        if (_gameManager._levelManager._currentEnemyLeft > 0)
         {
             foreach (var weapon in _playerWeaponList)
             {
                 if (weapon != null)
                 {
-                    weapon.Fire(new Vector2(_firePoint.position.x, _firePoint.position.y));
+                    Fire(new Vector2(_firePoint.position.x, _firePoint.position.y), weapon);
                 }
             }
         }
@@ -49,5 +50,15 @@ public class PlayerWeapon : MonoBehaviour, IFixedUpdateObserver
     public void UpdateWeapon(WeaponData weaponData, int index)
     {
         _playerWeaponList[index] = weaponData;
+    }
+    public void Fire(Vector2 firePoint, WeaponData weaponData)
+    {
+        weaponData._fireCD += Time.fixedDeltaTime;
+        if (weaponData._fireCD >= 1 / weaponData.AttackSpeed)
+        {
+            GameObject projectileInstance = Instantiate(_weaponProjectile, firePoint, Quaternion.identity);
+            projectileInstance.GetComponent<WeaponProjectile>().Initialize(weaponData, firePoint);
+            weaponData._fireCD = 0;
+        }
     }
 }

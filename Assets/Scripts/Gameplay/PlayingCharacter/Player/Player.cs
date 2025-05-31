@@ -5,8 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour, Damageable
 {
     private float _maxHealth = 100f;
-    public float _shield;
-    public float _health;
+    private float _shield;
+    public float Shield
+    {
+        get
+        {
+            return _shield;
+        }
+        set
+        {
+            _shield = value;
+            _statDisplay.UpdateShieldText(_shield);
+        }
+    }
+    private float _health;
     public float MaxHealth
     {
         get
@@ -24,7 +36,7 @@ public class Player : MonoBehaviour, Damageable
         set
         {
             _health = value;
-            _healthBar.UpdateHealthBar();
+            _statDisplay.UpdateHealthText(_health);
             if (_health <= 0)
             {
                 _gameManager.ChangeState(GameState.GameOver);
@@ -32,24 +44,28 @@ public class Player : MonoBehaviour, Damageable
         }
     }
     private GameManager _gameManager;
-    private HealthBar _healthBar;
+    private PlayerStatDisplay _statDisplay;
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        _healthBar = GetComponentInChildren<HealthBar>();
+        _statDisplay = GetComponent<PlayerStatDisplay>();
     }
     private void Start()
     {
         Health = MaxHealth;
-        _shield = 0f;
+        Shield = 0f;
     }
     public void TakeDamage(float damage)
     {
-        _shield -= damage;
-        if(_shield <= 0)
+        Shield -= damage;
+        if(Shield <= 0)
         {
-            Health -= Mathf.Abs(_shield);
-            _shield = 0f;
+            Health -= Mathf.Abs(Shield);
+            Shield = 0f;
+        }
+        if(Health < 0)
+        {
+            Health = 0f;
         }
     }
     public void Heal(float amount)

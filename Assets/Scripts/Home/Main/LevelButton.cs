@@ -21,6 +21,7 @@ public class LevelButton : MonoBehaviour
     public void OnClick()
     {
         _gameManager._levelManager._currentLevel = _level;
+        _gameManager._levelManager._currentWave = 1;
         _gameManager.CurrentPlayingState = PlayingState.Event;
         _gameManager.ChangeScene(SceneName.Play);
     }

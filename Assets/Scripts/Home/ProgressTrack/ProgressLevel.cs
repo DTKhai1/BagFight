@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum RewardType
+{
+    Common,
+    Rare,
+    Epic
+}
 public class ProgressLevel : MonoBehaviour
 {
     public int _level;
@@ -12,18 +18,55 @@ public class ProgressLevel : MonoBehaviour
     public GameObject _expBarImg;
     public Image _levelTextBackground;
     public TMP_Text _levelText;
-
     private float _baseHeight;
-    private WeaponPieceReward _reward;
     public Button _obtainRewardButton;
 
-    public PlayerData _playerData;
+    public WeaponPieceReward _reward;
+
+    HomeUIManager _homeUIManager;
+    private int _amount
+    {
+        get
+        {
+            switch (_rewardType)
+            {
+                case RewardType.Common:
+                    return Random.Range(1, 3);
+                case RewardType.Rare:
+                    return Random.Range(3, 5);
+                case RewardType.Epic:
+                    return 5;
+                default:
+                    return 1;
+            }
+        }
+    }
+    private RewardType _rewardType
+    {
+        get
+        {
+            switch (_level % 5)
+            {
+                case 1:
+                case 2:
+                    return RewardType.Common;
+                case 3:
+                case 4:
+                    return RewardType.Rare;
+                default:
+                    return RewardType.Epic;
+            }
+        }
+    }
+
     public WeaponDictionary _weaponDictionary;
+    GameManager _gameManager;
     private void Awake()
     {
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         _baseHeight = _expBarImg.GetComponent<RectTransform>().sizeDelta.y;
         _obtainRewardButton.onClick.AddListener(ObtainReward);
-        _playerData = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>()._playerData;
+        _homeUIManager = GameObject.FindGameObjectWithTag("HomeUI").GetComponent<HomeUIManager>();
     }
     private void Start()
     {
@@ -32,14 +75,12 @@ public class ProgressLevel : MonoBehaviour
     }
     public void ObtainReward()
     {
-        ProgressTrackSystem progressTrackSystem = GameObject.FindGameObjectWithTag("ProgressTrack").GetComponent<ProgressTrackSystem>();
         int randomIndex = Random.Range(0, _weaponDictionary._weaponList.Count);
-        _reward = new WeaponPieceReward(2 + _level/4);
-        _reward._weaponData = _weaponDictionary._weaponList[randomIndex];
         _reward._weaponData.AddWeaponPiece(_reward._value);
-        progressTrackSystem.OpenPanel(_reward._weaponData, _reward._value);
+        _gameManager.DisplayProgressReward(_reward._weaponData, _reward._value);
         _isRewarded = true;
-        _playerData._isRewardReceived[_level - 1] = true;
+        _gameManager._playerData._isRewardReceived[_level - 1] = true;
+        _homeUIManager.UpdateDisplay();
         UpdateInteractable();
     }
     public void FillFullBar()
@@ -74,5 +115,11 @@ public class ProgressLevel : MonoBehaviour
                 _obtainRewardButton.interactable = false;
             }
         }
+    }
+    public void AddReward()
+    {
+        int randomIndex = Random.Range(0, _weaponDictionary._weaponList.Count);
+        _reward = new WeaponPieceReward(_amount);
+        _reward._weaponData = _weaponDictionary._weaponList[randomIndex];
     }
 }

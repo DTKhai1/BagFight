@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d43ea9dbaf6a78419fe10a7ab44aef6, type: 3}
+  m_Name: Dynamite
+  m_EditorClassIdentifier: 
+  _weaponName: 6
+  _basedamage: 6
+  _baseAttackSpeed: 1
+  _icon: {fileID: -1503869760, guid: 704255f7caaa12d4cafb431d474d157e, type: 3}
+  _price: 10
+  _level: 1
+  _pieces: 2
+  _wpRarity: 0
+  _type: 1
+  _target: 0
+  _weaponProjectile: {fileID: 5246484134059677614, guid: 05c1281626d952246ae32f47f2724a8a, type: 3}

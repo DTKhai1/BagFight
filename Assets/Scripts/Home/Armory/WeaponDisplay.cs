@@ -12,12 +12,28 @@ public class WeaponDisplay : MonoBehaviour
     public Button _openPanelButton;
     public ArmoryDisplay _armoryDisplay;
 
-    public void Display(WeaponData weaponData)
+    private WeaponData _weaponData;
+
+    HomeUIManager _homeUIManager;
+    private void Awake()
     {
-        _icon.sprite = weaponData._icon;
-        _amountPieceText.text = weaponData._pieces.ToString() + "/" + weaponData._requiredPieces.ToString();
-        _amountPieceImage.fillAmount = (float)weaponData._pieces / (float)weaponData._requiredPieces;
-        _openPanelButton.onClick.AddListener(() => OpenUpgradePanel(weaponData));
+        _homeUIManager = GameObject.FindGameObjectWithTag("HomeUI").GetComponent<HomeUIManager>();
+    }
+    private void Start()
+    {
+        _homeUIManager.OnUIChange.AddListener(Display);
+    }
+    public void Initialize(WeaponData weaponData)
+    {
+        _weaponData = weaponData;
+        Display();
+    }
+    public void Display()
+    {
+        _icon.sprite = _weaponData._icon;
+        _amountPieceText.text = _weaponData._pieces.ToString() + "/" + _weaponData._requiredPieces.ToString();
+        _amountPieceImage.fillAmount = ((float)_weaponData._pieces) / ((float)_weaponData._requiredPieces);
+        _openPanelButton.onClick.AddListener(() => OpenUpgradePanel(_weaponData));
     }
     public void OpenUpgradePanel(WeaponData weaponData)
     {

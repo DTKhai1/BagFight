@@ -13,7 +13,7 @@ public class UpgradePanel : MonoBehaviour
     public TMP_Text _baseAtkSpdText;
     public TMP_Text _baseDamageText;
 
-    public void UpdateDisplay()
+    public void Display()
     {
         _icon.sprite = _weaponData._icon;
         _levelText.text = "Level: " + _weaponData._level.ToString();
@@ -23,7 +23,8 @@ public class UpgradePanel : MonoBehaviour
     public void UpgradeWeapon()
     {
         _weaponData.UpgradeLevel();
-        UpdateDisplay();
+        Display();
         transform.parent.GetComponent<ArmoryManager>().UpdateArmoryDisplay();
+        GameObject.FindGameObjectWithTag("HomeUI").GetComponent<HomeUIManager>().UpdateDisplay();
     }
 }

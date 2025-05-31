@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public PlayingState CurrentPlayingState { get; set; }
     public GameState CurrentState { get; private set; }
     public UIManager _uiManager;
-    public EnemyManager _enemyManager;
     public RewardManager _rewardManager;
     public LevelManager _levelManager;
     public PlayerData _playerData;
@@ -43,7 +42,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
-        _enemyManager = GetComponent<EnemyManager>();
         _rewardManager = GetComponent<RewardManager>();
         _levelManager = GetComponent<LevelManager>();
         if (_playerData._isRewardReceived.Count < _playerData._maxLevelProgress)
@@ -89,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleStateChange()
     {
-        if(_uiManager != null)
+        if (_uiManager != null)
         {
             HideAllUI();
 
@@ -103,25 +101,21 @@ public class GameManager : MonoBehaviour
                 case GameState.Pause:
                     _uiManager.StopPanel.SetActive(true);
                     _uiManager.PauseUI.SetActive(true);
-                    Debug.Log("Pause Menu");
                     Time.timeScale = 0;
                     break;
                 case GameState.GameOver:
                     _uiManager.StopPanel.SetActive(true);
                     _uiManager.GameOverUI.SetActive(true);
-                    Debug.Log("Game Over Menu");
                     Time.timeScale = 0;
                     break;
                 case GameState.Victory:
                     GetVictoryReward();
                     _uiManager.StopPanel.SetActive(true);
                     _uiManager.VictoryUI.SetActive(true);
-                    Debug.Log("Victory Menu");
                     Time.timeScale = 0;
                     break;
                 case GameState.Home:
                     Time.timeScale = 1;
-                    Debug.Log("Home Menu");
                     ChangeScene(SceneName.Home);
                     break;
             }
@@ -133,12 +127,12 @@ public class GameManager : MonoBehaviour
     }
 
     //play events
-    public  void ChangeToEnemySpawn()
+    public void ChangeToEnemySpawn()
     {
         CurrentPlayingState = PlayingState.EnemySpawn;
         MoveShopUI();
     }
-    public  void ChangeToEvent()
+    public void ChangeToEvent()
     {
         CurrentPlayingState = PlayingState.Event;
         MoveShopUI();
@@ -151,7 +145,7 @@ public class GameManager : MonoBehaviour
     {
         ProgressXP _progressXP = new ProgressXP(100);
         Gold _gold;
-        if(_levelManager._currentLevelType == LevelType.Normal)
+        if (_levelManager._currentLevelType == LevelType.Normal)
         {
             _gold = new Gold(100);
         }
@@ -162,5 +156,13 @@ public class GameManager : MonoBehaviour
         _rewardManager.AddGold(_gold._value);
         _rewardManager.AddProgressXP(_progressXP._value);
         _uiManager.UpdateReward(_gold._value, _progressXP._value);
+    }
+    public void DisplayProgressReward(WeaponData weaponData, int value)
+    {
+        ProgressTrackSystem progressTrackSystem = GameObject.FindGameObjectWithTag("ProgressTrack").GetComponent<ProgressTrackSystem>();
+        if (progressTrackSystem != null)
+        {
+            progressTrackSystem.OpenPanel(weaponData, value);
+        }
     }
 }

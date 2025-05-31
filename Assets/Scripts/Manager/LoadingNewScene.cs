@@ -61,10 +61,8 @@ public class LoadingNewScene : MonoBehaviour, IUpdateObserver
                 foreach (var op in sceneOperations)
                 {
                     totalProgress += op.progress;
-                    Debug.Log("progress: " + totalProgress);
                 }
                 _target = totalProgress / sceneOperations.Length;
-                Debug.Log("target: " + _target);
             }
             while (_target < 0.9f);
             do

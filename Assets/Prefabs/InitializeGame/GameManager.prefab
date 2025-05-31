@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 3478770807582474888}
   - component: {fileID: 7560630611540814188}
   - component: {fileID: 8395870244000897140}
-  - component: {fileID: 2932643244913922068}
   - component: {fileID: 3807519683571571128}
   - component: {fileID: 8837959763742658558}
   m_Layer: 0
@@ -119,11 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
-  _enemyManager: {fileID: 0}
   _rewardManager: {fileID: 0}
   _levelManager: {fileID: 0}
   _playerData: {fileID: 11400000, guid: 5b24a0aee7c5b5f40b4a26b30965ab14, type: 2}
   _weaponDictionary: {fileID: 11400000, guid: 03856810426ebfc40a2f15dd794a627e, type: 2}
+  _weaponShop: {fileID: 0}
 --- !u!114 &7560630611540814188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,21 +143,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8179590252006501277}
   m_Enabled: 1
---- !u!114 &2932643244913922068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8179590252006501277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d8a2bae5a390248838f506b8cd80be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _totalEnemyLeft: 0
-  _waveLeft: 0
-  _currentEnemyLeft: 0
 --- !u!114 &3807519683571571128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbb92da2e8327c49bb58c3c093b49c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _totalEnemyLeft: 0
+  _waveLeft: 0
+  _currentEnemyLeft: 0
   _maxLevel: 6
   _currentLevel: 0
+  _currentWave: 0
 --- !u!114 &8837959763742658558
 MonoBehaviour:
   m_ObjectHideFlags: 0

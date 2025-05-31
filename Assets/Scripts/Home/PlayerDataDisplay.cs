@@ -6,17 +6,19 @@ using UnityEngine;
 public class PlayerDataDisplay : MonoBehaviour
 {
     GameManager _gameManager;
+    HomeUIManager _homeUIManager;
     PlayerData _playerData;
     public TMP_Text _goldAmount;
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         _playerData = _gameManager._playerData;
-        Debug.Log(_playerData._gold);
+        _homeUIManager = GameObject.FindGameObjectWithTag("HomeUI").GetComponent<HomeUIManager>();
     }
     private void Start()
     {
         UpdateDisplay();
+        _homeUIManager.OnUIChange.AddListener(UpdateDisplay);
     }
     public void UpdateDisplay()
     {

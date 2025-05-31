@@ -19,6 +19,7 @@ public class ProgressTrackSystem : MonoBehaviour
 
 
     public GameObject _rewardPanel;
+    public Button _closeButton;
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -28,6 +29,7 @@ public class ProgressTrackSystem : MonoBehaviour
     private void Start()
     {
         InitializeProgressTrack();
+        _closeButton.onClick.AddListener(ClosePanel);
     }
 
     public void InitializeProgressTrack()
@@ -51,6 +53,10 @@ public class ProgressTrackSystem : MonoBehaviour
             _progressLevel.FillFullBar();
             _progressLevel._isUnlocked = true;
             _progressLevel._isRewarded = _playerData._isRewardReceived[i];
+            if(!_progressLevel._isRewarded)
+            {
+                _progressLevel.AddReward();
+            }
         }
         ProgressLevel _progressCurrentLevel = _progressLevelList[_currentLevel].GetComponent<ProgressLevel>();
         _progressCurrentLevel.FillImage((float)_currentExp / (float)_levelExp);

@@ -17,7 +17,7 @@ MonoBehaviour:
   _baseAttackSpeed: 0.6
   _icon: {fileID: 21300000, guid: f6f177b04ab009740a44f7bf64e2425a, type: 3}
   _price: 9
-  _level: 5
+  _level: 1
   _pieces: 0
   _wpRarity: 0
   _type: 0
