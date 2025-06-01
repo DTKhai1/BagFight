@@ -18,8 +18,8 @@ MonoBehaviour:
   _icon: {fileID: -1503869760, guid: 704255f7caaa12d4cafb431d474d157e, type: 3}
   _price: 10
   _level: 1
-  _pieces: 2
+  _pieces: 0
   _wpRarity: 0
   _type: 1
   _target: 0
-  _weaponProjectile: {fileID: 5246484134059677614, guid: 05c1281626d952246ae32f47f2724a8a, type: 3}
+  _fireCD: 0

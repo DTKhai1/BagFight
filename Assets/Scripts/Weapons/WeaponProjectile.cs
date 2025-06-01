@@ -15,9 +15,9 @@ public class WeaponProjectile : MonoBehaviour, IFixedUpdateObserver
     private float _flightTime;
     public Vector2 _firePoint;
     private float _maxHeight = 2f;
-    private float _explosionRadius = 0.75f;
+    private float _explosionRadius = 1.5f;
     public GameObject _explosionVFX;
-    private float _laserRange = 3f;
+    private float _laserRange = 10f;
 
     private float _rotationSpeed = 45f;
 
@@ -77,7 +77,7 @@ public class WeaponProjectile : MonoBehaviour, IFixedUpdateObserver
                 }
             }
         }
-        _lineRenderer.SetPosition(1, _firePoint + direction * _laserRange);
+        _lineRenderer.SetPosition(1, _firePoint + direction * (_laserRange/direction.x));
         Destroy(gameObject, 0.5f);
     }
     private void StartProjectile()

@@ -54,7 +54,6 @@ public class InventoryManager : MonoBehaviour
         InventoryItem item = newItem.GetComponent<InventoryItem>();
         item.InitializeItem(weapon);
         item._inventoryPosition = slot.transform.GetSiblingIndex();
-        Debug.Log("Item spawned at position: " + item._inventoryPosition);
     }
 
     public void RemoveWeapon(int index)

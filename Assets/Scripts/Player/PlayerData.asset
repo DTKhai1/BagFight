@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6afce0a55993b04c81d85c96949a189, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _progressTrackXP: 1000
-  _gold: 99600
-  _isRewardReceived: 000101010000000000000000000000000000000000000000000000000000
+  _progressTrackXP: 500
+  _gold: 99400
+  _isRewardReceived: 000000000000000000000000000000000000000000000000000000000000

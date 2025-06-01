@@ -22,4 +22,4 @@ MonoBehaviour:
   _wpRarity: 0
   _type: 0
   _target: 2
-  _weaponProjectile: {fileID: 5246484134059677614, guid: 05c1281626d952246ae32f47f2724a8a, type: 3}
+  _fireCD: 0

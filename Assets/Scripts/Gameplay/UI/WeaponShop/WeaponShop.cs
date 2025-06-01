@@ -22,7 +22,7 @@ public class WeaponShop : MonoBehaviour, IUpdateObserver
 
     private int _resetAttemptsLeft;
     private int _numberOfWeapons;
-    private int _numberOfSlots = 3;
+    private int _numberOfSlots = 4;
     private InventoryManager _inventoryManager;
     private List<GameObject> _inventoryList = new List<GameObject>();
 
